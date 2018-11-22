@@ -1,0 +1,50 @@
+image: docker:stable
+services:
+- docker:dind
+
+stages:
+- build
+- deploy-stage
+- deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+  CONTAINER_RELEASE_IMAGE: otau/services:api_v2-latest
+
+build site:
+  image: node:8
+  stage: build
+  script:
+    - npm install --progress=false
+    - npm run build
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist
+      
+deploy to stage server:
+  image: alpine
+  stage: deploy-stage
+  before_script:
+    - apk update
+    - apk add --no-cache rsync openssh
+    - echo "$SSH_PRIVATE_KEY" >> key.pem
+    - chmod 400 key.pem
+  script:
+    - rsync -rav -O --no-perms -e "ssh -i key.pem -o 'StrictHostKeyChecking no'" --delete dist/ otau@stage.otau.org:/var/www/account.otau.org
+  only:
+    - develop
+deploy to server:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk update
+    - apk add --no-cache rsync openssh
+    - echo "$SSH_PRIVATE_KEY" >> key.pem
+    - chmod 400 key.pem
+  script:
+    - rsync -rav -O --no-perms -e "ssh -i key.pem -o 'StrictHostKeyChecking no'" --delete dist/ deploy@104.248.29.151:/var/www/account.otau.org
+  only:
+    - master
+

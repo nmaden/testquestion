@@ -1,0 +1,18 @@
+:root {
+    --main-project-color:  #123368;
+    --main-white-color:  #ffffff;
+    --main-border-color:  #f5f7fb;
+    --main-user-page-color: #f5f7fb;
+    --main-hover-btn-color: #2160c5;
+    --main-input-border-color: #ccc;
+    --main-border-color-notif: #ccc;
+    --main-border-shadow-notif: rgba(0,0,0,.2);  
+    --main-form-background-notif: hsla(0,0%,100%,.4);
+
+    --shadow-white: 1px 1px 2px rgb(255, 255, 255);
+    --auth-color:#089ddd;
+    --button-hover:#0776bd;
+    --a-hover:#044e7c;
+    --color-red-error: rgba(155, 7, 7, 0.9);
+
+}
