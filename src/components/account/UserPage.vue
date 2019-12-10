@@ -88,7 +88,7 @@
             }
         },
         mounted() {
-            axios.get("http://latinapi.herokuapp.com/v2/api/get"
+            axios.get("https://latinapi.herokuapp.com/v2/api/get"
              )
             .then(response => {
                 this.alldata = response.data;
@@ -104,7 +104,7 @@
             formSubmit(e) {
                 let self = this;
                 e.preventDefault();
-                axios.post('http://latinapi.herokuapp.com/v2/api/insert', {
+                axios.post('https://latinapi.herokuapp.com/v2/api/insert', {
                     name: this.name,
                     email: this.email,
                     comment: this.comments
