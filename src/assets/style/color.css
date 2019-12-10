@@ -1,5 +1,5 @@
 :root {
-    --main-project-color:  #123368;
+    --main-project-color:  #5ebfbf;
     --main-white-color:  #ffffff;
     --main-border-color:  #f5f7fb;
     --main-user-page-color: #f5f7fb;
@@ -14,5 +14,7 @@
     --button-hover:#0776bd;
     --a-hover:#044e7c;
     --color-red-error: rgba(155, 7, 7, 0.9);
+
+ 
 
 }
