@@ -58,7 +58,7 @@
                             </div>
                             <div class="message_head_right">
                                 <p>Количество комментарии {{alldata[index][0]["comment"].length}}</p>
-                                <img  src="../../assets/images/arrow_up.png" @click="selectItem(hideshowstorage[index],index)"  alt="">
+                                <img :src="require('../../assets/images/' + i[0]['img'])"  @click="selectItem(hideshowstorage[index],index)"  alt=""/>
                                 <img src="../../assets/images/edit.png"  @click="edit(editstorage[index],index)" alt="">
                                 <img src="../../assets/images/remove.png"  @click="removeItem(index)" alt="">
                             </div>
@@ -144,7 +144,9 @@
                 if (bottomOfWindow  &&  this.items.length !=this.alldata.length) {
                         this.loadMore();
                 }
-            };   
+
+            };
+             loadMore ();   
         },
       
         methods: {
@@ -207,11 +209,11 @@
                 this.hideshowstorage[index] = i +1;
                 if(this.hideshowstorage[index]%2!=0) {
                     value = false;
-                    img = "../../assets/images/arrow_down.png";
+                    img = "arrow_down.png";
                 }
                 else {
                     value = true;
-                    img = "../../assets/images/arrow_up.png";
+                    img = "arrow_up.png";
                 }
                 this.alldata[index][0]["show"] = value;
                 this.alldata[index][0]["img"] = img;
@@ -248,7 +250,7 @@
                     "show": false,
                     "edit_show": false,
                     "comment": [],
-                    "img": "../../assets/images/arrow_up.png"
+                    "img": "arrow_down.png"
                 }];
 
                 var messages  = [];
