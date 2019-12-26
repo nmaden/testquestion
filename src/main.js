@@ -12,6 +12,13 @@ Vue.config.productionTip = false;
 Vue.use(VueCookies);
 
 Vue.use(VModal, { dialog: true });
+import VueExpandPanel from 'vue-expand-panel'
+ 
+// import styles
+import 'vue-expand-panel/dist/vue-expand-panel.css'
+ 
+// mount with global
+Vue.use(VueExpandPanel)
 
 
 new Vue({
