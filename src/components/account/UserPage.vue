@@ -62,7 +62,7 @@
                             </div>
                             <div class="message_head_right">
                                 <p>Количество комментарии {{alldata[index][0]["comment"].length}}</p>
-                                <img :src="require('../../assets/images/' +i[0]['img'])"   @click="toggle(i[0])"    alt=""/>
+                                <img :src="require('../../assets/images/' + i[0]['img'])"   @click="toggle(i[0])"    alt=""/>
                                 <img src="../../assets/images/edit.png"  @click="toggleEdit(i[0])"  alt="">
                                 <img src="../../assets/images/remove.png"  @click="removeItem(index)" alt="">
                             </div>
@@ -145,7 +145,7 @@
                         this.loadMore();
                 }
             };
-           
+            
         },
       
         methods: {
@@ -212,6 +212,8 @@
                     "name" : this.comentator_name[index],
                     "comment": this.comment[index]
                 };
+                this.comentator_name[index] = "";
+                this.comment[index] = "";
                 this.alldata[index][0]["comment"].push(comment);
                 localStorage.setItem("messages",JSON.stringify(this.alldata));
             },
@@ -236,7 +238,9 @@
                 }];
 
                 var messages  = [];
-
+                this.header = "";
+                this.short_header = "";
+                this.description = "";
                 if(localStorage.getItem("messages")!=undefined) {
                     messages =  JSON.parse(localStorage.getItem("messages"));
                 }
