@@ -17,8 +17,8 @@ export default {
 
 <style>
   * {
-  font-family: Lato;
-  margin: 0;
-  padding: 0;
-}
+    font-family: Lato;
+    margin: 0;
+    padding: 0;
+  }
 </style>

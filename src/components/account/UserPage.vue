@@ -36,14 +36,18 @@
               </div>
         </header> 
         <div class="content">
+                <div v-if="!this.empty">
+                     <p>{{this.message}}</p>
+                </div>
+               
                 <div class="print_comment">
                    
-                    <div class="message"  v-for="(i, index) in this.items"   :key="`item-${index}`" >
+                    <div class="message"  v-for="(i, index) in this.items" :key="`item-${index}`" >
                         
                         <div class="message_head">
                             <div  class="message_head_left">
                                 
-                                <div v-if='i[0]["edit_show"]==false' class="item_title" >
+                                <div v-if='i[0].clickedEdit!=false'  class="item_title" >
                                     <p>{{i[0]["header"]}} </p>
                                     <p>{{i[0]["short_header"]}}</p>
                                 </div>
@@ -51,21 +55,20 @@
                                     <input placeholder="Заголовок"   v-model="i[0]['header']" >
                                     <input placeholder="Краткое описание"   v-model="i[0]['short_header']">
                                     <textarea placeholder="Полное описание" v-model="i[0]['description']"></textarea>
-                                    <button @click="submitEdit(editstorage[index],index)">Опубликовать</button>
+                                    <button @click="submitEdit(index)">Опубликовать</button>
                                 </div>
                          
 
                             </div>
                             <div class="message_head_right">
                                 <p>Количество комментарии {{alldata[index][0]["comment"].length}}</p>
-                                <img :src="require('../../assets/images/' + i[0]['img'])"  @click="selectItem(hideshowstorage[index],index)"  alt=""/>
-                                <img src="../../assets/images/edit.png"  @click="edit(editstorage[index],index)" alt="">
+                                <img :src="require('../../assets/images/' + i[0]['img'])"   @click="toggle(i[0])"    alt=""/>
+                                <img src="../../assets/images/edit.png"  @click="toggleEdit(i[0])"  alt="">
                                 <img src="../../assets/images/remove.png"  @click="removeItem(index)" alt="">
                             </div>
                         </div>
 
-                        <div v-if='i[0]["show"]==true' class="message_body" >
-                            
+                        <div v-if='i[0].clicked' class="message_body" >
                             <p>Полное описание:</p>
                             <p>{{i[0]["description"]}}</p>
                             <div class="send_comment">
@@ -73,8 +76,6 @@
                                 <input type="text" placeholder="Текст" v-model="comment[index]">
                                 <button @click="sendComment(index)">Опубликовать</button>
                             </div>
-                        
-
                             <div class="allcomments" v-for="(j,position) in i[0]['comment']"  :key="position" >
                                 <p>{{ j["name"] }}</p>
                                 <p>{{ j["comment"] }}</p>
@@ -84,9 +85,10 @@
                         </div>
                     </div>
                 
-         <div style="display: flex; justify-content: center" v-show="loading">
-                        <img style="width: 150px; height: 100px" src="../../assets/images/loader.gif" alt="">
+       
         </div>
+          <div style="display: flex; justify-content: center" v-show="loading">
+            <img style="width: 150px; height: 100px" src="../../assets/images/loader.gif" alt="">
         </div>
         </div>
         <footer>
@@ -119,111 +121,84 @@
                 array: [],
                 isHidden: false,
                 activeItem: null,
-                hideshowstorage: [],
-                editstorage: [],
                 comentator_name: [],
                 comment: [],
                 persons: [],
                 loading: false,
+                empty: true,
                 nextItem: 0,
-                items: []
+                items: [],
+                message: "Массив пустой"
             }
         },
         mounted() {
             if(localStorage.getItem("messages")!=undefined) {
                 this.alldata =  JSON.parse(localStorage.getItem("messages"));
-                this.hideshowstorage = JSON.parse(localStorage.getItem("hideshowstorage"));
-                this.editstorage = JSON.parse(localStorage.getItem("editstorage"));
             }
             else {
                 this.alldata =  [];
             }
-
+            this.loadMore(); 
             window.onscroll = () => {
                 let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-                if (bottomOfWindow  &&  this.items.length !=this.alldata.length) {
+                if (bottomOfWindow  &&  this.items.length !=this.alldata.length && this.alldata.length!=0) {
                         this.loadMore();
                 }
-
             };
-             loadMore ();   
+           
         },
       
         methods: {
-            loadMore () {
-                this.loading = true;
-                setTimeout(e => {
-                    for (var i = 0; i < 1; i++) {
-                        this.items.push(this.alldata[this.nextItem++]);
+            toggle: function (data) {
+                if(data.hasOwnProperty('clicked')){
+                    data.clicked = !data.clicked;
+                    if(data.clicked) {
+                       this.$set(data, 'img', "arrow_up.png");
                     }
+                    else {
+                       this.$set(data, 'img', "arrow_down.png");
+                    }
+                }else{
+                    this.$set(data, 'clicked', true);
+                    this.$set(data, 'img', "arrow_up.png");
+                }
+            },
+            toggleEdit: function (data) {
+                if(data.hasOwnProperty('clickedEdit')){
+                    data.clickedEdit = !data.clickedEdit;
+                }else{
+                    this.$set(data, 'clickedEdit', true);
+                }
+            },
+            loadMore () {
+                if(this.alldata.length!=0) {
+                    this.loading = true;
+                    setTimeout(e => {
+                        for (var i = 0; i < 1; i++) {
+                            this.items.push(this.alldata[this.nextItem++]);
+                        }
+                        this.loading = false;
+                    }, 0);
+                     this.empty = true;
+                }else {
                     this.loading = false;
-                }, 0);
-            },
-            edit(i,index) {
-                var value = "";
-                this.editstorage[index] = i +1;
-                if(this.editstorage[index]%2!=0) {
-                    value = false;
-                  
+                    this.empty = false;
+                    
                 }
-                else {
-                    value = true;
-                  
-                   
-                }
-                this.alldata[index][0]["edit_show"] = value;
-               
-
-                localStorage.setItem("messages",JSON.stringify(this.alldata));
-                localStorage.setItem("editstorage",JSON.stringify(this.editstorage));
-
-            },
-            submitEdit(i,index) {
-                var value = "";
-                this.editstorage[index] = i +1;
-                if(this.editstorage[index]%2!=0) {
-                    value = false;
-                }
-                else {
-                    value = true;
-                }
-                this.alldata[index][0]["edit_show"] = value;
-               
-
-                localStorage.setItem("messages",JSON.stringify(this.alldata));
-                localStorage.setItem("editstorage",JSON.stringify(this.editstorage));
+            
             },
             removeComment(index,i) {
+              /* Удаление комментарии */
               this.alldata[index][0]["comment"].splice(i,1); 
               localStorage.setItem("messages",JSON.stringify(this.alldata));
             },
             removeItem(index) {
+              /* Удаление данных */ 
               this.alldata.splice(index,1);
-              this.editstorage[index] = null;
-              this.hideshowstorage[index] = null;
               localStorage.setItem("messages",JSON.stringify(this.alldata));
             },
-            selectItem(i,index) {
-                var value = "";
-                var img = "";
-                this.hideshowstorage[index] = i +1;
-                if(this.hideshowstorage[index]%2!=0) {
-                    value = false;
-                    img = "arrow_down.png";
-                }
-                else {
-                    value = true;
-                    img = "arrow_up.png";
-                }
-                this.alldata[index][0]["show"] = value;
-                this.alldata[index][0]["img"] = img;
-                
-                localStorage.setItem("hideshowstorage",JSON.stringify(this.hideshowstorage));
-
-                localStorage.setItem("messages",JSON.stringify(this.alldata));
-            },
-
             sendComment(index) {
+                /* Добавление комментарии */ 
                 var id = 0;
                 if(this.alldata[index][0]["comment"].length==0) {
                     id = 0;
@@ -231,7 +206,7 @@
                 else {
                     id = this.alldata[index][0]["comment"].length + 1;
                 }
-                // alert(index);
+           
                 var comment = {
                     "id": id,
                     "name" : this.comentator_name[index],
@@ -239,10 +214,17 @@
                 };
                 this.alldata[index][0]["comment"].push(comment);
                 localStorage.setItem("messages",JSON.stringify(this.alldata));
-                console.log(this.alldata[index][0]["comment"][0]);
+            },
+            submitEdit(index) {
+                /* Сохранить редактированный данный */ 
+               
+                this.alldata[index][0]["clickedEdit"] = true;
+                localStorage.setItem("messages",JSON.stringify(this.alldata));
             },
             formSubmit(e) {
                 e.preventDefault();
+
+                /* Добавление данных в localStorage */
                 var data = [{
                     "header": this.header,
                     "short_header": this.short_header,
@@ -270,14 +252,6 @@
                     var number = messages.length - 1;
                 }
 
-                for (let index = 0; index < number; index++) {
-                    this.hideshowstorage.push(1);
-                    this.editstorage.push(1);
-                }
-
-               
-                localStorage.setItem("editstorage",JSON.stringify(this.editstorage)); 
-                localStorage.setItem("hideshowstorage",JSON.stringify(this.hideshowstorage));
 
                 localStorage.setItem("messages",JSON.stringify(messages));
                 var retrievedObject = localStorage.getItem("messages");
@@ -305,8 +279,11 @@
                 padding-right: 30px;
                 margin-bottom: 10px;
             }
+           
         }
-        
+        ::placeholder {
+            color: white;
+        }
         header {
                 background-color: #37414e;
                 display: flex;
@@ -390,7 +367,6 @@
                         display: flex;
                         flex-direction: column;
                         justify-content: space-between;
-                        height: 215px;
                         input {
                             margin-bottom: 10px;
                         }
@@ -530,6 +506,9 @@
                                 color: black;
                             }
                         }
+                        button {
+                            width: 200px;
+                        }
                     }  
 
                     .message_head_right {
@@ -557,9 +536,7 @@
                             flex-direction: row;
                             justify-content: space-between;
                             width: 1000px;
-                            p:nth-child(2) {
-                                color: black;
-                            }
+                          
                             img {
                                 width: 15px;
                                 height: 15px;
