@@ -231,8 +231,6 @@
                     "header": this.header,
                     "short_header": this.short_header,
                     "description": this.description,
-                    "show": false,
-                    "edit_show": false,
                     "comment": [],
                     "img": "arrow_down.png"
                 }];
