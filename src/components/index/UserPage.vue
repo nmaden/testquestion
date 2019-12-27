@@ -196,7 +196,6 @@
             },
             removeItem(index) {
               /* Удаление данных */ 
-              alert(index);
               this.items.splice(index,1);
               this.alldata.splice(index,1);
               localStorage.setItem("messages",JSON.stringify(this.alldata));
@@ -348,9 +347,6 @@
                         width: 200px;
                         outline: none;
                         color: white
-                    }
-                    input:focus {
-                        border: 1px solid #a23132;
                     }
                     textarea {
                         padding: 20px;
