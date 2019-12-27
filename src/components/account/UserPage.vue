@@ -47,7 +47,7 @@
                         <div class="message_head">
                             <div  class="message_head_left">
                                 
-                                <div v-if='i[0].clickedEdit!=false'  class="item_title" >
+                                <div v-if='!i[0].clickedEdit'  class="item_title" >
                                     <p>{{i[0]["header"]}} </p>
                                     <p>{{i[0]["short_header"]}}</p>
                                 </div>
