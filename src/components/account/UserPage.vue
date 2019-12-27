@@ -108,7 +108,6 @@
 
 <!-- scripts -->
 <script>
-    import axios from "axios";
     export default {
         components: {        
         },
@@ -138,13 +137,15 @@
             else {
                 this.alldata =  [];
             }
-            this.loadMore(); 
+          
             window.onscroll = () => {
                 let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
                 if (bottomOfWindow  &&  this.items.length !=this.alldata.length && this.alldata.length!=0) {
                         this.loadMore();
                 }
             };
+
+            this.loadMore(); 
             
         },
       
@@ -194,6 +195,8 @@
             },
             removeItem(index) {
               /* Удаление данных */ 
+              alert(index);
+              this.items.splice(index,1);
               this.alldata.splice(index,1);
               localStorage.setItem("messages",JSON.stringify(this.alldata));
             },
@@ -247,13 +250,7 @@
                 }
             
                 messages.push(data);
-
-                if(messages.length==1) {
-                    var number = 1;
-                }else {
-                    var number = messages.length - 1;
-                }
-
+              
 
                 localStorage.setItem("messages",JSON.stringify(messages));
                 var retrievedObject = localStorage.getItem("messages");
