@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
 
-import UserPage from '../components/account/UserPage.vue';
+import UserPage from '../components/index/UserPage.vue';
 const router = new VueRouter({
 routes: [
         {

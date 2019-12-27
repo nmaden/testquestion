@@ -255,6 +255,7 @@
                 localStorage.setItem("messages",JSON.stringify(messages));
                 var retrievedObject = localStorage.getItem("messages");
                 this.alldata = JSON.parse(retrievedObject);
+                this.loadMore();
             }
         }
     };
