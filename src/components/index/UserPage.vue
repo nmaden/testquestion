@@ -137,7 +137,8 @@
             else {
                 this.alldata =  [];
             }
-          
+            
+            this.loadMore(); 
             window.onscroll = () => {
                 let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
                 if (bottomOfWindow  &&  this.items.length !=this.alldata.length && this.alldata.length!=0) {
@@ -145,7 +146,6 @@
                 }
             };
 
-            this.loadMore(); 
             
         },
       
