@@ -62,7 +62,7 @@
                             </div>
                             <div class="message_head_right">
                                 <p>Количество комментарии {{alldata[index][0]["comment"].length}}</p>
-                                <img v-bind:src="'../../assets/images/' + i[0]['img']"   @click="toggle(i[0])"    alt=""/>
+                                <img :src="require('../../assets/images/' +i[0]['img'])"   @click="toggle(i[0])"    alt=""/>
                                 <img src="../../assets/images/edit.png"  @click="toggleEdit(i[0])"  alt="">
                                 <img src="../../assets/images/remove.png"  @click="removeItem(index)" alt="">
                             </div>
