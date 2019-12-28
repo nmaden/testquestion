@@ -1,6 +1,6 @@
 <!-- template -->
 <template >
-    <div class="main">
+    <article>
           <header>
               <div class="header_inner">
                         <div class="logo">
@@ -35,7 +35,7 @@
                         </form>
               </div>
         </header> 
-        <div class="content">
+        <main>
                 <div v-if="!this.empty">
                      <p>{{this.message}}</p>
                 </div>
@@ -85,12 +85,12 @@
                         </div>
                     </div>
                 
-       
-        </div>
-          <div style="display: flex; justify-content: center" v-show="loading">
-            <img style="width: 150px; height: 100px" src="../../assets/images/loader.gif" alt="">
-        </div>
-        </div>
+            
+                </div>
+                <div style="display: flex; justify-content: center" v-show="loading">
+                    <img style="width: 150px; height: 100px" src="../../assets/images/loader.gif" alt="">
+                </div>
+        </main>
         <footer>
             <div class="bottom">
                 <div class="logo">
@@ -103,7 +103,7 @@
                 </div>
             </div>
         </footer>
-    </div>                 
+    </article>                 
 </template>
 
 <!-- scripts -->
@@ -263,11 +263,13 @@
 
 <!-- style -->
 <style scoped lang="scss"> 
-        body {
-            .main {
+        
+        html,body {
+            min-height: 100vh;
+            article {
+                min-height: 100vh;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
             }
             button {
                 background-color:  #a23132;
@@ -285,8 +287,10 @@
             color: white;
         }
         header {
+                
                 background-color: #37414e;
                 display: flex;
+                flex-shrink: 0;
                 flex-direction: column;
 
                 align-items: center;
@@ -429,8 +433,9 @@
             }
                 
         }
-        .content {
+        main {
                 display: flex;
+                flex: 1 0 auto;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
@@ -544,7 +549,7 @@
             }
             $bp-small: 1024px;
             @media only screen and (max-width: $bp-small) {
-                .content {
+                main {
                     padding-top: 20px;
                     padding-bottom: 0;
                     .print_comment {
@@ -606,12 +611,16 @@
 
         footer {
             display: flex;
+            flex-shrink: 0;
+            margin: auto auto 0 auto;
             flex-direction: row;
             justify-content: center;
             align-items: center;
             padding: 20px;
             background-color:  #37414e;
             width: 100%;
+           
+            
             .bottom {
                 width: 1060px;
                 display: flex;
@@ -642,6 +651,14 @@
                     }
             }    
         }
+
+    // @media only screen and (min-width: 700px){
+    //     footer{ //apply to pages of less content only.
+    //         position: absolute;
+    //         bottom: 0px;
+    //         width: 100%;
+    //     }
+    // }
     // media request
     $bp-small: 1024px;
     
