@@ -140,8 +140,9 @@
             
             this.loadMore(); 
             window.onscroll = () => {
+                const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
                 var top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-                let bottomOfWindow = top + window.innerHeight === document.documentElement.offsetHeight;
+                let bottomOfWindow = scrollTop + window.innerHeight === document.documentElement.offsetHeight;
                 if (bottomOfWindow  &&  this.items.length !=this.alldata.length && this.alldata.length!=0) {
                         this.loadMore();
                 }
