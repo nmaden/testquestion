@@ -361,9 +361,8 @@
                         outline: none;
                         color: white;
                     }
-                    textarea:focus {
-                        border: 1px solid #a23132;
-                    }
+                  
+                  
                     .data_block_first {
                         display: flex;
                         flex-direction: column;
@@ -651,14 +650,6 @@
                     }
             }    
         }
-
-    // @media only screen and (min-width: 700px){
-    //     footer{ //apply to pages of less content only.
-    //         position: absolute;
-    //         bottom: 0px;
-    //         width: 100%;
-    //     }
-    // }
     // media request
     $bp-small: 1024px;
     
