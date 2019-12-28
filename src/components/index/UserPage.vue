@@ -265,7 +265,7 @@
 <style scoped lang="scss"> 
         
         html,body {
-            min-height: 100vh;
+          
             article {
                 min-height: 100vh;
                 display: flex;
