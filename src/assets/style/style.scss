@@ -32,7 +32,7 @@ header {
         width: 100%;
         padding-top: 30px;
         padding-bottom: 30px;
-        .header_inner {
+        .header__inside {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -41,29 +41,21 @@ header {
         form { 
             width: 100%;
         }
-        .logo {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            width: 80px;
-          
-            p {
-           
-                color: white;
-            }
+      
+        p {
+            color: white;
         }
-        .center_gmail {
+        
+       
+    
+        .header__img {
+            width: 80px;
+            height: 80px;
             margin-top: 50px;
             align-self: center;
         }
-    
-        .center_gmail img {
-            width: 80px;
-            height: 80px;
-        }
    
-        .data_block {
+        .header__submit {
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -74,7 +66,7 @@ header {
                 color: white;
             }
             .required {
-                color: #a23132 !important;
+                color: #a23132;
                 padding-left: 5px;
             }
             input {
@@ -97,7 +89,7 @@ header {
             }
           
           
-            .data_block_first {
+            .header__submit_first {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -105,7 +97,7 @@ header {
                     margin-bottom: 10px;
                 }
             }
-            .data_block_second {
+            .header__submit_second {
                 display: flex;
                 flex-direction: column;
             }
@@ -125,13 +117,15 @@ $bp-small: 1024px;
 @media only screen and (max-width: $bp-small) {
     header {
         width: 100%;
-        .header_inner {
+        .header__inside {
             width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
         }
-        .logo {
+        .header__logo {
             padding-left: 20px;
         }
-        .data_block {
+        .header__submit {
             width: 100%;
             display: flex;
             flex-direction: column !important;
@@ -139,18 +133,16 @@ $bp-small: 1024px;
             height: unset;
         }
     
-        .data_block_first {
-            padding-left: 20px;
-            padding-right: 20px;
+        .header__submit_first {
+          
             height: unset !important;
             input,textarea {
                 width: 100%;
                 margin-bottom: 20px;
             }
         }
-        .data_block_second {
-            padding-left: 20px;
-            padding-right: 20px;
+        .header__submit_second {
+          
             width: 100%;
             textarea {
                 width: 100%;
@@ -159,9 +151,6 @@ $bp-small: 1024px;
         }
         label {
             flex-direction: column;
-        }
-        button {
-            margin-left: 20px;
         }
     }
         
@@ -361,15 +350,11 @@ footer {
         justify-content: space-between;
         align-items: center;
     }
-    .logo {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 80px;
-        p {
-            color: white;
-        }
+  
+    p {
+        color: white;
     }
+ 
     .social_links {
             display: flex;
             flex-direction: row;
@@ -393,7 +378,7 @@ footer{
     .bottom {
         width: 100%;
     }
-    .logo {
+    .header__logo {
         padding-left: 20px;
     }
     .social_links {

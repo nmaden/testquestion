@@ -2,21 +2,16 @@
 <template >
     <article>
           <header>
-              <div class="header_inner">
-                        <div class="logo">
-                            <p>TEST</p>
-                        </div>
-
-                
-                        <div class="center_gmail">
-                                <!-- <div class="radius_gmail"> -->
-                                    <img src="../../assets/images/gmail.png" alt="" class="gmail">
-                                <!-- </div> -->
-                        </div>
+              <div class="header__inside">
+                      
+                        <p class="header__text">TEST</p>
+                      
+                        <img src="../../assets/images/gmail.png" alt="" class="header__img">
+                     
 
                         <form @submit="formSubmit">
-                            <div class="data_block">  
-                                    <div class="data_block_first">
+                            <div class="header__submit">  
+                                    <div class="header__submit_first">
                                         <div>
                                             <label for="name"><p>Заголовок</p><p class="required">*</p></label>
                                             <input type="text" id="name" v-model="header" required>
@@ -26,7 +21,7 @@
                                             <textarea name="" id="comment" cols="30" rows="5" v-model="short_header" required></textarea>
                                         </div>
                                     </div>
-                                    <div class="data_block_second">
+                                    <div class="header__submit_second">
                                         <label for="comment"><p>Полное описание</p><p class="required">*</p></label>
                                         <textarea name="" id="comment" cols="30" rows="10" v-model="description" required></textarea>
                                     </div>
@@ -93,9 +88,9 @@
         </main>
         <footer>
             <div class="bottom">
-                <div class="logo">
-                    <p>TEST</p>
-                </div>
+                
+                <p>TEST</p>
+                
 
                 <div class="social_links">
                     <img src="../../assets/images/vk.png" alt="">
@@ -190,18 +185,18 @@
             
             },
             removeComment(index,i) {
-              /* Удаление комментарии */
+            
               this.alldata[index][0]["comment"].splice(i,1); 
               localStorage.setItem("messages",JSON.stringify(this.alldata));
             },
             removeItem(index) {
-              /* Удаление данных */ 
+          
               this.items.splice(index,1);
               this.alldata.splice(index,1);
               localStorage.setItem("messages",JSON.stringify(this.alldata));
             },
             sendComment(index) {
-                /* Добавление комментарии */ 
+            
                 var id = 0;
                 if(this.alldata[index][0]["comment"].length==0) {
                     id = 0;
