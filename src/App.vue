@@ -6,6 +6,7 @@
 // Import styles project
 import './assets/style/color.css';
 import './assets/style/fonts.css';
+import './assets/style/style.scss';
  
 export default {
   name: 'app',
@@ -16,7 +17,7 @@ export default {
 </script>
 
 <style>
-  * {
+  p,a {
     font-family: Lato;
     margin: 0;
     padding: 0;
